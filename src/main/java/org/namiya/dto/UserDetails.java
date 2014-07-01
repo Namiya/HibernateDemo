@@ -4,12 +4,13 @@ package org.namiya.dto;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class UserDetails {
 	
-	@Id 
+	@Id @GeneratedValue
 	private int userId;
 	private String userName;
 	private Date joinedDate;

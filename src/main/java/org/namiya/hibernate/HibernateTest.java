@@ -14,11 +14,13 @@ public class HibernateTest {
 
 	public static void main(String[] args) {
 		UserDetails user= new UserDetails();
-		user.setUserId(1);
 		user.setUserName("First User");
 		user.setAddress("First User's address");
 		user.setJoinedDate(new Date());
 		user.setDescription("Description for the user goes here.");
+		
+		UserDetails user2 = new UserDetails();
+		user2.setUserName("Second User");
 		
 		//for In Hibernate 4.3
 		SessionFactory sessionFactory;
@@ -32,6 +34,7 @@ public class HibernateTest {
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
 	    session.save(user);
+	    session.save(user2);
 	    session.getTransaction().commit();
 	    session.close();
 	    
