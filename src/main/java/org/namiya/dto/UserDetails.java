@@ -2,10 +2,13 @@ package org.namiya.dto;
 
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +25,11 @@ public class UserDetails {
 	private int userId;
 	private String userName;
 	private Date joinedDate;
-	@AttributeOverrides({
+	
+	
+/*
+ *  Example for Embedded Objects 
+ * 	@AttributeOverrides({
 	@AttributeOverride(name="street", column=@Column(name="Home_STREET_NAME")),
 	@AttributeOverride(name="city", column=@Column(name="Home_CITY_NAME")),
 	@AttributeOverride(name="state", column=@Column(name="Home_STATE_NAME")),
@@ -31,7 +38,9 @@ public class UserDetails {
 	private Address homeAddress;
 
 	private Address officeAddress;
-	
+*/	
+	@ElementCollection
+	private Set<Address> ListOfAddresses = new HashSet();
 	
 	public Date getJoinedDate() {
 		return joinedDate;
@@ -61,17 +70,10 @@ public class UserDetails {
 		this.userId = userId;
 	}
 
-	public Address getOfficeAddress() {
-		return officeAddress;
+	public Set<Address> getListOfAddresses() {
+		return ListOfAddresses;
 	}
-	public void setOfficeAddress(Address officeAddress) {
-		this.officeAddress = officeAddress;
-	}
-	
-	public Address getHomeAddress() {
-		return homeAddress;
-	}
-	public void setHomeAddress(Address homeAddress) {
-		this.homeAddress = homeAddress;
+	public void setListOfAddresses(Set<Address> listOfAddresses) {
+		ListOfAddresses = listOfAddresses;
 	}
 }
