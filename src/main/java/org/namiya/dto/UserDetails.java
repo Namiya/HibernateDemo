@@ -1,6 +1,8 @@
 package org.namiya.dto;
 
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +14,12 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 public class UserDetails {
@@ -40,11 +48,25 @@ public class UserDetails {
 	private Address officeAddress;
 */	
 	@ElementCollection
-	private Set<Address> ListOfAddresses = new HashSet();
+	@JoinTable(name="USER_ADDRESSES",
+			joinColumns=@JoinColumn(name="userId"))
+	@GenericGenerator(name = "hilo-gen", strategy = "hilo")
+	@CollectionId(columns = { @Column(name="ADDRESS_ID")}, generator = "hilo-gen", type = @Type(type="long"))
+	private Collection<Address> ListOfAddresses = new ArrayList<Address>();
 	
+	
+	public Collection<Address> getListOfAddresses() {
+		return ListOfAddresses;
+	}
+
+	public void setListOfAddresses(Collection<Address> listOfAddresses) {
+		ListOfAddresses = listOfAddresses;
+	}
+
 	public Date getJoinedDate() {
 		return joinedDate;
 	}
+
 	public void setJoinedDate(Date joinedDate) {
 		this.joinedDate = joinedDate;
 	}
@@ -70,10 +92,4 @@ public class UserDetails {
 		this.userId = userId;
 	}
 
-	public Set<Address> getListOfAddresses() {
-		return ListOfAddresses;
-	}
-	public void setListOfAddresses(Set<Address> listOfAddresses) {
-		ListOfAddresses = listOfAddresses;
-	}
 }
