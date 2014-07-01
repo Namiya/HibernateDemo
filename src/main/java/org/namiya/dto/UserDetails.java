@@ -3,18 +3,35 @@ package org.namiya.dto;
 
 import java.util.Date;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class UserDetails {
+
+/*	
+	@EmbeddedID
+	private LoginName userID;
 	
-	@Id @GeneratedValue
+*/	
+	@Id @GeneratedValue 
 	private int userId;
 	private String userName;
 	private Date joinedDate;
-	private String Address;
+	@AttributeOverrides({
+	@AttributeOverride(name="street", column=@Column(name="Home_STREET_NAME")),
+	@AttributeOverride(name="city", column=@Column(name="Home_CITY_NAME")),
+	@AttributeOverride(name="state", column=@Column(name="Home_STATE_NAME")),
+	@AttributeOverride(name="pincode", column=@Column(name="Home_PINCODE_NAME"))
+	})
+	private Address homeAddress;
+
+	private Address officeAddress;
+	
 	
 	public Date getJoinedDate() {
 		return joinedDate;
@@ -22,12 +39,7 @@ public class UserDetails {
 	public void setJoinedDate(Date joinedDate) {
 		this.joinedDate = joinedDate;
 	}
-	public String getAddress() {
-		return Address;
-	}
-	public void setAddress(String address) {
-		Address = address;
-	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -48,6 +60,18 @@ public class UserDetails {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	
 
+	public Address getOfficeAddress() {
+		return officeAddress;
+	}
+	public void setOfficeAddress(Address officeAddress) {
+		this.officeAddress = officeAddress;
+	}
+	
+	public Address getHomeAddress() {
+		return homeAddress;
+	}
+	public void setHomeAddress(Address homeAddress) {
+		this.homeAddress = homeAddress;
+	}
 }

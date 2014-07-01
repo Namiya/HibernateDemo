@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.namiya.dto.Address;
 import org.namiya.dto.UserDetails;
 
 public class HibernateTest {
@@ -15,12 +16,19 @@ public class HibernateTest {
 	public static void main(String[] args) {
 		UserDetails user= new UserDetails();
 		user.setUserName("First User");
-		user.setAddress("First User's address");
 		user.setJoinedDate(new Date());
 		user.setDescription("Description for the user goes here.");
+
+		Address addr = new Address();
+		addr.setStreet("Home Street Name");
+		addr.setCity("Home City Name");
 		
-		UserDetails user2 = new UserDetails();
-		user2.setUserName("Second User");
+		Address addr2 = new Address();
+		addr2.setStreet("Office Street Name");
+		addr2.setCity("Office City Name");
+		
+		user.setHomeAddress(addr);
+		user.setOfficeAddress(addr2);
 		
 		//for In Hibernate 4.3
 		SessionFactory sessionFactory;
@@ -34,7 +42,6 @@ public class HibernateTest {
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
 	    session.save(user);
-	    session.save(user2);
 	    session.getTransaction().commit();
 	    session.close();
 	    
@@ -44,6 +51,7 @@ public class HibernateTest {
 	    session.beginTransaction();
 	    user = (UserDetails) session.get(UserDetails.class, 1);
 	    System.out.println("User name is: " + user.getUserName());
+	    session.close();
 	    
 	}
 
