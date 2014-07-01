@@ -1,6 +1,8 @@
 package org.namiya.hibernate;
 
 
+import java.util.Date;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -14,6 +16,9 @@ public class HibernateTest {
 		UserDetails user= new UserDetails();
 		user.setUserId(1);
 		user.setUserName("First User");
+		user.setAddress("First User's address");
+		user.setJoinedDate(new Date());
+		user.setDescription("Description for the user goes here.");
 		
 		//for In Hibernate 4.3
 		SessionFactory sessionFactory;
@@ -28,7 +33,15 @@ public class HibernateTest {
 	    session.beginTransaction();
 	    session.save(user);
 	    session.getTransaction().commit();
+	    session.close();
+	    
+	    user = null;
 
+	    session = sessionFactory.openSession();
+	    session.beginTransaction();
+	    user = (UserDetails) session.get(UserDetails.class, 1);
+	    System.out.println("User name is: " + user.getUserName());
+	    
 	}
 
 }
