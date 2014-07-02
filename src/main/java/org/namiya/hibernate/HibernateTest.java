@@ -21,8 +21,8 @@ public class HibernateTest {
 		vehicle2.setVehicleName("Jeep");
 		user.getVehicles().add(vehicle);
 		user.getVehicles().add(vehicle2);
-		vehicle.getUserList().add(user);
-		vehicle2.getUserList().add(user);
+		vehicle.setUser(user);
+		vehicle2.setUser(user);
 		
 		
 		//for In Hibernate 4.3
@@ -36,9 +36,7 @@ public class HibernateTest {
 		
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
-	    session.save(user);
-	    session.save(vehicle);
-	    session.save(vehicle2);
+	    session.persist(user);
 	    session.getTransaction().commit();
 	    session.close();
 	    

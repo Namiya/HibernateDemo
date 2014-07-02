@@ -1,12 +1,12 @@
 package org.namiya.dto;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 public class Vehicle {
@@ -14,9 +14,16 @@ public class Vehicle {
 	@Id @GeneratedValue
 	private int vehicleId;
 	private String vehicleName;
-	@ManyToMany(mappedBy="vehicles")
-	private Collection<UserDetails> userList = new ArrayList<UserDetails>();
+	@ManyToOne
+	@NotFound(action=NotFoundAction.IGNORE)
+	private UserDetails user;
 	
+	public UserDetails getUser() {
+		return user;
+	}
+	public void setUser(UserDetails user) {
+		this.user = user;
+	}
 	public int getVehicleId() {
 		return vehicleId;
 	}
@@ -30,12 +37,6 @@ public class Vehicle {
 		this.vehicleName = vehicleName;
 	}
 
-	public Collection<UserDetails> getUserList() {
-		return userList;
-	}
-	public void setUserList(Collection<UserDetails> userList) {
-		this.userList = userList;
-	}
 	
 	
 

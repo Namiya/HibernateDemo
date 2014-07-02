@@ -4,10 +4,11 @@ package org.namiya.dto;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class UserDetails {
@@ -15,7 +16,7 @@ public class UserDetails {
 	@Id @GeneratedValue 
 	private int userId;
 	private String userName;
-	@ManyToMany 
+	@OneToMany (cascade=CascadeType.ALL)
 	private Collection<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
 	
