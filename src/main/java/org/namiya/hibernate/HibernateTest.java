@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.namiya.dto.Address;
 import org.namiya.dto.UserDetails;
+import org.namiya.dto.Vehicle;
 
 public class HibernateTest {
 
@@ -17,6 +18,10 @@ public class HibernateTest {
 		UserDetails user= new UserDetails();
 		user.setUserName("First User");
 
+		Vehicle vehicle = new Vehicle();
+		vehicle.setVehicleName("Car");
+		user.setVehicle(vehicle);
+		
 		
 		//for In Hibernate 4.3
 		SessionFactory sessionFactory;
@@ -30,8 +35,10 @@ public class HibernateTest {
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
 	    session.save(user);
+	    session.save(vehicle);
 	    session.getTransaction().commit();
 	    session.close();
+	    
 	    
 	    user = null;
 
@@ -41,7 +48,7 @@ public class HibernateTest {
 	    session.close(); 
 	    System.out.println("User name is: " + user.getUserName());
 	    
-	    
+	    return;
 	}
 
 }
