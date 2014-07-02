@@ -12,6 +12,8 @@ public class HibernateTest {
 
 	public static void main(String[] args) {
 		
+		UserDetails user = new UserDetails();
+		user.setUserName("Test User");
 		
 		//for In Hibernate 4.3
 		SessionFactory sessionFactory;
@@ -24,29 +26,7 @@ public class HibernateTest {
 		
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
-		for(int i=0; i<10; i++)
-		{
-			UserDetails user = new UserDetails();
-			user.setUserName("User" +i);
-			session.save(user);
-		}
-		session.getTransaction().commit();
-		session.close();
 		
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		UserDetails user = (UserDetails) session.get(UserDetails.class, 6);
-		session.delete(user);
-		session.getTransaction().commit();
-	    session.close();
-	    
-	    user = null;
-	    
-	    session = sessionFactory.openSession();
-		session.beginTransaction();
-		user = (UserDetails) session.get(UserDetails.class, 5);
-		user.setUserName("Updated User");
-		session.update(user);
 		session.getTransaction().commit();
 	    session.close();
 	    
