@@ -25,6 +25,10 @@
 		<mapping class="org.namiya.dto.UserDetails"/>
 		
 		<mapping class="org.namiya.dto.Vehicle"/>
+		
+		<mapping class="org.namiya.dto.TwoWheeler"/>
+		
+		<mapping class="org.namiya.dto.FourWheeler"/>
 
 	</session-factory>
 
