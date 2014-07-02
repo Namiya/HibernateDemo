@@ -16,8 +16,13 @@ public class HibernateTest {
 		user.setUserName("First User");
 
 		Vehicle vehicle = new Vehicle();
+		Vehicle vehicle2 = new Vehicle();
 		vehicle.setVehicleName("Car");
-		user.setVehicle(vehicle);
+		vehicle2.setVehicleName("Jeep");
+		user.getVehicles().add(vehicle);
+		user.getVehicles().add(vehicle2);
+		vehicle.setUser(user);
+		vehicle2.setUser(user);
 		
 		
 		//for In Hibernate 4.3
@@ -33,6 +38,7 @@ public class HibernateTest {
 	    session.beginTransaction();
 	    session.save(user);
 	    session.save(vehicle);
+	    session.save(vehicle2);
 	    session.getTransaction().commit();
 	    session.close();
 	    
