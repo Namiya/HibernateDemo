@@ -54,8 +54,10 @@ public class HibernateTest {
 	    session = sessionFactory.openSession();
 	    session.beginTransaction();
 	    user = (UserDetails) session.get(UserDetails.class, 1);
+	    session.close(); //set EAGER fetch, so could close session before getListOfAddresses
+	    user.getListOfAddresses().size();
 	    System.out.println("User name is: " + user.getUserName());
-	    session.close();
+	    
 	    
 	}
 

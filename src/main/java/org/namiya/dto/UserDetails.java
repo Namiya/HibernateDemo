@@ -12,6 +12,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -47,7 +48,7 @@ public class UserDetails {
 
 	private Address officeAddress;
 */	
-	@ElementCollection
+	@ElementCollection (fetch=FetchType.EAGER)
 	@JoinTable(name="USER_ADDRESSES",
 			joinColumns=@JoinColumn(name="userId"))
 	@GenericGenerator(name = "hilo-gen", strategy = "hilo")
