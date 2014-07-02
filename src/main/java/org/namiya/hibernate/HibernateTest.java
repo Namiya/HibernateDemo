@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.namiya.dto.UserDetails;
 
 public class HibernateTest {
 
@@ -23,8 +24,32 @@ public class HibernateTest {
 		
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
-	    session.getTransaction().commit();
+		for(int i=0; i<10; i++)
+		{
+			UserDetails user = new UserDetails();
+			user.setUserName("User" +i);
+			session.save(user);
+		}
+		session.getTransaction().commit();
+		session.close();
+		
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		UserDetails user = (UserDetails) session.get(UserDetails.class, 6);
+		session.delete(user);
+		session.getTransaction().commit();
 	    session.close();
+	    
+	    user = null;
+	    
+	    session = sessionFactory.openSession();
+		session.beginTransaction();
+		user = (UserDetails) session.get(UserDetails.class, 5);
+		user.setUserName("Updated User");
+		session.update(user);
+		session.getTransaction().commit();
+	    session.close();
+	    
 	}
 
 }
