@@ -1,9 +1,12 @@
 package org.namiya.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Vehicle {
@@ -11,8 +14,8 @@ public class Vehicle {
 	@Id @GeneratedValue
 	private int vehicleId;
 	private String vehicleName;
-	@ManyToOne
-	private UserDetails user;
+	@ManyToMany(mappedBy="vehicles")
+	private Collection<UserDetails> userList = new ArrayList<UserDetails>();
 	
 	public int getVehicleId() {
 		return vehicleId;
@@ -26,11 +29,12 @@ public class Vehicle {
 	public void setVehicleName(String vehicleName) {
 		this.vehicleName = vehicleName;
 	}
-	public UserDetails getUser() {
-		return user;
+
+	public Collection<UserDetails> getUserList() {
+		return userList;
 	}
-	public void setUser(UserDetails user) {
-		this.user = user;
+	public void setUserList(Collection<UserDetails> userList) {
+		this.userList = userList;
 	}
 	
 	

@@ -7,7 +7,7 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class UserDetails {
@@ -15,7 +15,7 @@ public class UserDetails {
 	@Id @GeneratedValue 
 	private int userId;
 	private String userName;
-	@OneToMany
+	@ManyToMany 
 	private Collection<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
 	

@@ -21,8 +21,8 @@ public class HibernateTest {
 		vehicle2.setVehicleName("Jeep");
 		user.getVehicles().add(vehicle);
 		user.getVehicles().add(vehicle2);
-		vehicle.setUser(user);
-		vehicle2.setUser(user);
+		vehicle.getUserList().add(user);
+		vehicle2.getUserList().add(user);
 		
 		
 		//for In Hibernate 4.3
