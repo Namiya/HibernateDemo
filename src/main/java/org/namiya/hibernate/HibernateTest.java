@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.namiya.dto.UserDetails;
 
 public class HibernateTest {
 
@@ -26,13 +27,18 @@ public class HibernateTest {
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
 	    
-	    Query query = session.createQuery("from UserDetails where userId > 5");
-	    List users = query.list();
+	    Query query = session.createQuery("select userName from UserDetails");
+	    query.setFirstResult(5);
+	    query.setMaxResults(4);
+	    List<String> userNames = (List<String>) query.list();
 	    
 		session.getTransaction().commit();
 	    session.close();
 	    
-	    System.out.println("Size of List result = " + users.size());
+	    for (String u: userNames)
+	    	System.out.println(u);
+	    
+	    
 	}
 
 }
