@@ -8,9 +8,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
+@NamedQuery(name="UserDetails.byId", query="from UserDetails where userId =?")
+@NamedNativeQuery(name="UserDetails.byName", query="select * from userdetails where userName = ?", resultClass=UserDetails.class)
 public class UserDetails {
 
 	@Id @GeneratedValue 

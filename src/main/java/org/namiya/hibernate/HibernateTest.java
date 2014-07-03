@@ -27,9 +27,10 @@ public class HibernateTest {
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
 	    
-	    String minUserId = "5";
-	    Query query = session.createQuery("from UserDetails where userId > :userId");
-	    query.setInteger("userId", Integer.parseInt(minUserId));
+	    //String minUserId = "5";
+	    //Query query = session.getNamedQuery("UserDetails.byId");
+	    Query query = session.getNamedQuery("UserDetails.byName");
+	    query.setString(0, "nine");
 	    
 	    List<UserDetails> users = (List<UserDetails>) query.list();
 	    
