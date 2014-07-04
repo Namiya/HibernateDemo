@@ -3,11 +3,12 @@ package org.namiya.hibernate;
 
 import java.util.List;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.namiya.dto.UserDetails;
 
@@ -27,12 +28,11 @@ public class HibernateTest {
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
 	    
-	    //String minUserId = "5";
-	    //Query query = session.getNamedQuery("UserDetails.byId");
-	    Query query = session.getNamedQuery("UserDetails.byName");
-	    query.setString(0, "nine");
+	    Criteria criteria = session.createCriteria(UserDetails.class);
+	    criteria.add(Restrictions.like("userName", "%user"))
+	    		.add(Restrictions.ge("userId", 5));
 	    
-	    List<UserDetails> users = (List<UserDetails>) query.list();
+	    List<UserDetails> users = (List<UserDetails>) criteria.list();
 	    
 		session.getTransaction().commit();
 	    session.close();
