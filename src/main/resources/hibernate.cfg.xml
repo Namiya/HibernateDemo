@@ -16,7 +16,6 @@
 		
 		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/HibernateDB</property>
 		
-		<!-- Second-level cache -->
 		<property name="hibernate.cache.use_second_level_cache">true</property>
 		<property name="hibernate.cache.use_query_cache">true</property>
 		<property name="cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>

@@ -1,6 +1,13 @@
 package org.namiya.hibernate;
 
 
+
+
+import java.util.List;
+
+
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -24,13 +31,18 @@ public class HibernateTest {
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
 	    
-	    UserDetails user = (UserDetails) session.get(UserDetails.class, 1);
+	    Query query = session.createQuery("from UserDetails user where user.userId=1");
+	    query.setCacheable(true);
+	    List user = query.list();
+	    
 	    session.getTransaction().commit();
 	    session.close();
 	    
 	    session = sessionFactory.openSession();
 	    session.beginTransaction();
-	    UserDetails user2 = (UserDetails) session.get(UserDetails.class, 1);
+	    Query query2 = session.createQuery("from UserDetails user where user.userId=1");
+	    query2.setCacheable(true);
+	    user = query2.list();
 	
 	    
 		session.getTransaction().commit();
